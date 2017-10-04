@@ -1,0 +1,126 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-if.html">
+
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<dom-module id="stripe-card">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax id="ajax"
+      method="post"
+      url="[[ _apiUrl ]]"
+      content-type="application/x-www-form-urlencoded"
+      last-response="{{ token }}"
+    ></iron-ajax>
+
+    <iron-form id="form">
+      <form>
+        <paper-input type="text" name="number" placeholder="Card number"></paper-input>
+        <paper-input type="text" name="exp_month" placeholder="MM"></paper-input>
+        <paper-input type="text" name="exp_year" placeholder="YY"></paper-input>
+        <paper-input type="text" name="cvc" placeholder="CVC"></paper-input>
+        <template is="dom-if" if="[[ collectZip ]]">
+          <paper-input type="text" name="address_zip" placeholder="ZIP"></paper-input>
+        </template>
+        <paper-button on-click="submit">Submit</paper-button>
+      </form>
+    </iron-form>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class StripeCard extends Polymer.Element {
+      static get is() { return 'stripe-card'; }
+
+      static get properties() {
+        return {
+          // Your stripe publishable key (https://stripe.com/docs/dashboard#api-keys)
+          publishableKey: {
+            type: String,
+          },
+          // Stripe token response (https://stripe.com/docs/api#token_object-id)
+          token: {
+            type: Object,
+            notify: true,
+          },
+          // Stripe api endpoint
+          _apiUrl: {
+            type: String,
+            value: 'https://api.stripe.com/v1/tokens',
+          },
+          // Stripe api version (taken from elements.js)
+          _apiVersion: {
+            type: String,
+            value: 'stripe.js/aa094f2; stripe-js-v3/aa094f2',
+          },
+          // Whether to show zip-code field to validate
+          collectZip: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true,
+          },
+        };
+      }
+
+      submit() {
+        let form = this.$.form;
+        let ajax = this.$.ajax;
+        let params = {
+          'key': this.publishableKey,
+          'payment_user_agent': this._apiVersion,
+          'referrer': document.location.href,
+        };
+        params.card = form.serializeForm();
+        ajax.body = this._nestedQueryString(params);
+        ajax.generateRequest();
+      }
+
+      _nestedQueryString(params, parent) {
+        var queryParts = [];
+        var param;
+        var value;
+        for (param in params) {
+          value = params[param];
+          param = window.encodeURIComponent(param);
+          if (typeof value === 'object') {
+            queryParts.push(this._nestedQueryString(value, param))
+          } else if (Array.isArray(value)) {
+            for (var i = 0; i < value.length; i++) {
+              if (parent) {
+                queryParts.push(`${parent}[${param}]=${window.encodeURIComponent(value[i])}`);
+              } else {
+                queryParts.push(`${param}=${window.encodeURIComponent(value[i])}`);
+              }
+            }
+          } else if (value !== null) {
+            if (parent) {
+              queryParts.push(`${parent}[${param}]=${window.encodeURIComponent(value)}`);
+            } else {
+              queryParts.push(`${param}=${window.encodeURIComponent(value)}`);
+            }
+          } else {
+            if (parent) {
+              queryParts.push(`${parent}[${param}]`);
+            } else {
+              queryParts.push(`${param}`);
+            }
+          }
+        }
+        return queryParts.join('&');
+      }
+    }
+    customElements.define(StripeCard.is, StripeCard);
+  </script>
+</dom-module>

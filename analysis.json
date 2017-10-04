@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "",
+      "summary": "",
+      "path": "stripe-card.html",
+      "properties": [
+        {
+          "name": "publishableKey",
+          "type": "string",
+          "description": "The stripe publishable key (https://stripe.com/docs/dashboard#api-keys)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 49,
+              "column": 10
+            },
+            "end": {
+              "line": 51,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "token",
+          "type": "Object",
+          "description": "Stripe token response (https://stripe.com/docs/api#token_object-id)",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 53,
+              "column": 10
+            },
+            "end": {
+              "line": 56,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
+          }
+        },
+        {
+          "name": "_apiUrl",
+          "type": "string",
+          "description": "Stripe api endpoint",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 58,
+              "column": 10
+            },
+            "end": {
+              "line": 61,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"https://api.stripe.com/v1/tokens\""
+        },
+        {
+          "name": "_apiVersion",
+          "type": "string",
+          "description": "Stripe api version (taken from elements.js)",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 63,
+              "column": 10
+            },
+            "end": {
+              "line": 66,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"stripe.js/aa094f2; stripe-js-v3/aa094f2\""
+        },
+        {
+          "name": "collectZip",
+          "type": "boolean",
+          "description": "Whether to show zip-code field to validate",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 68,
+              "column": 10
+            },
+            "end": {
+              "line": 72,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        }
+      ],
+      "methods": [
+        {
+          "name": "submit",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 76,
+              "column": 6
+            },
+            "end": {
+              "line": 87,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_nestedQueryString",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 89,
+              "column": 6
+            },
+            "end": {
+              "line": 121,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "params"
+            },
+            {
+              "name": "namespace"
+            }
+          ]
+        }
+      ],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 43,
+          "column": 4
+        },
+        "end": {
+          "line": 122,
+          "column": 5
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "StripeCard",
+      "attributes": [
+        {
+          "name": "publishable-key",
+          "description": "The stripe publishable key (https://stripe.com/docs/dashboard#api-keys)",
+          "sourceRange": {
+            "start": {
+              "line": 49,
+              "column": 10
+            },
+            "end": {
+              "line": 51,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Stripe token response (https://stripe.com/docs/api#token_object-id)",
+          "sourceRange": {
+            "start": {
+              "line": 53,
+              "column": 10
+            },
+            "end": {
+              "line": 56,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "Object"
+        },
+        {
+          "name": "collect-zip",
+          "description": "Whether to show zip-code field to validate",
+          "sourceRange": {
+            "start": {
+              "line": 68,
+              "column": 10
+            },
+            "end": {
+              "line": 72,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "type": "CustomEvent",
+          "name": "token-changed",
+          "description": "Fired when the `token` property changes.",
+          "metadata": {}
+        }
+      ],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "stripe-card"
+    }
+  ]
+}
