@@ -177,15 +177,7 @@
       }
 
       _clearErrors() {
-        let elements = this.$.form.querySelectorAll('*');
-
         this.$.error.innerText = "";
-        elements.forEach((element) => {
-          if (element.invalid) {
-            element.invalid = false;
-            element.errorMessage = "";
-          }
-        });
       }
 
       _displayError(error) {
