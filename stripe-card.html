@@ -195,10 +195,10 @@
 
           if (error.param == "number") {
             element.errorMessage = error.message;
-          } else {
-            this.$.error.innerText = error.message;
+            return;
           }
         }
+        this.$.error.innerText = error.message;
       }
 
       _nestedQueryString(params, parent) {
