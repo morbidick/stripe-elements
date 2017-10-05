@@ -126,14 +126,23 @@
 
       // request token, returns a promise
       submit() {
-        let payload = {
-          'key': this.publishableKey,
-          'payment_user_agent': this._apiVersion,
-          'referrer': document.location.href,
-          'card': this.$.form.serializeForm(),
-        };
-
         return new Promise((resolve, reject) => {
+          let form = this.$.form;
+
+          // some basic client side validation
+          if (!form.validate()) {
+            return reject({
+              type: 'form_validation',
+            });
+          };
+
+          let payload = {
+            'key': this.publishableKey,
+            'payment_user_agent': this._apiVersion,
+            'referrer': document.location.href,
+            'card': form.serializeForm(),
+          };
+
           fetch(this._apiUrl, {
             method: 'POST',
             body: this._nestedQueryString(payload),
@@ -154,6 +163,11 @@
                 message: 'Unknown error',
               });
             }
+          }).catch((error)=> {
+            return reject({
+              type: 'api_connection_error',
+              message: 'Connection to Stripe api failed.'
+            });
           });
         });
       }
