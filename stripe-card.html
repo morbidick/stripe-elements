@@ -3,8 +3,10 @@
 
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-form/iron-form.html">
-<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-styles/default-theme.html">
+<link rel="import" href="../paper-styles/typography.html">
 
 <dom-module id="stripe-card">
   <template>
@@ -12,17 +14,41 @@
       :host {
         display: block;
       }
+      .vertical {
+        display: flex;
+      }
+      .date-separator {
+        margin: 1.6em 0.3em 0;
+        font-size: 1.3em;
+      }
+      .small {
+        width: 15%;
+      }
+      .full {
+        flex-grow: 1;
+        margin-left: 1em;
+      }
+      #error {
+        min-height: 1em;
+        color: var(--paper-input-container-invalid-color, var(--error-color));
+        @apply --paper-font-caption;
+        @apply --paper-input-error;
+      }
     </style>
 
     <iron-form id="form">
       <form>
         <paper-input type="text" name="number" placeholder="Card number"></paper-input>
-        <paper-input type="text" name="exp_month" placeholder="MM"></paper-input>
-        <paper-input type="text" name="exp_year" placeholder="YY"></paper-input>
-        <paper-input type="text" name="cvc" placeholder="CVC"></paper-input>
-        <template is="dom-if" if="[[ !hideZip ]]">
-          <paper-input type="text" name="address_zip" placeholder="ZIP"></paper-input>
-        </template>
+        <div class="vertical">
+          <paper-input class="small" type="text" name="exp_month" placeholder="MM"></paper-input>
+          <div class="date-separator">/</div>
+          <paper-input class="small" type="text" name="exp_year" placeholder="YY"></paper-input>
+          <paper-input class="full" type="text" name="cvc" placeholder="CVC"></paper-input>
+          <template is="dom-if" if="[[ !hideZip ]]">
+            <paper-input class="full" type="text" name="address_zip" placeholder="ZIP"></paper-input>
+          </template>
+        </div>
+        <div id="error"></div>
         <template is="dom-if" if="[[ !hideSubmit ]]">
           <paper-button on-click="_triggerSubmit">Submit</paper-button>
         </template>
@@ -124,6 +150,7 @@
       _clearErrors() {
         let elements = this.$.form.querySelectorAll('*');
 
+        this.$.error.innerText = "";
         elements.forEach((element) => {
           if (element.invalid) {
             element.invalid = false;
@@ -136,7 +163,12 @@
         if (error.type == "card_error" && error.param) {
           let element = this.$.form.querySelectorAll(`[name="${error.param}"]`)[0];
           element.invalid = true;
-          element.errorMessage = error.message;
+
+          if (error.param == "number") {
+            element.errorMessage = error.message;
+          } else {
+            this.$.error.innerText = error.message;
+          }
         }
       }
 
