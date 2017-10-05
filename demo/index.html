@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>stripe-elements demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
+    <link rel="import" href="../../show-json/show-json.html">
+    <link rel="import" href="../stripe-card.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>stripe-card demo</h3>
+      <demo-snippet>
+        <template>
+          <stripe-card
+            publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+            token="{{ response }}"
+          ></stripe-card>
+        </template>
+      </demo-snippet>
+
+      <h3>stripe-card with data binding</h3>
+      <demo-snippet>
+        <template is="dom-bind" id="scope">
+          <stripe-card
+            publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+            token="{{ response }}"
+          ></stripe-card>
+          <show-json hide-copy-button json="{{ response }}"></show-json>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
