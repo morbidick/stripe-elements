@@ -2,11 +2,14 @@
   "name": "stripe-elements",
   "main": "stripe-card.html",
   "license": "MIT",
+  "demos": {
+    "Demo": "demo/index.html"
+  },
   "dependencies": {
     "iron-form": "PolymerElements/iron-form#^2.0.0",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
     "paper-input": "PolymerElements/paper-input#^2.0.0",
-    "paper-input": "PolymerElements/paper-styles#^2.0.0",
+    "paper-styles": "PolymerElements/paper-styles#^2.0.0",
     "polymer": "Polymer/polymer#^2.0.0"
   },
   "devDependencies": {
