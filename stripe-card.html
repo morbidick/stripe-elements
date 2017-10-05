@@ -86,6 +86,7 @@
             type: String,
             value: 'stripe.js/aa094f2; stripe-js-v3/aa094f2',
           },
+          // Stripe api headers Object
           _apiHeaders: {
             type: Object,
             value: () => {
@@ -95,7 +96,7 @@
               });
             },
           },
-          // Whether to show zip-code field to validate
+          // Whether to show zip-code field
           hideZip: {
             type: Boolean,
             value: false,
@@ -110,6 +111,7 @@
         };
       }
 
+      // request token, returns a promise
       submit() {
         let payload = {
           'key': this.publishableKey,
