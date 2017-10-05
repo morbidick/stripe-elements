@@ -63,7 +63,7 @@
         </div>
         <div id="error"></div>
         <template is="dom-if" if="[[ !hideSubmit ]]">
-          <paper-button on-click="_triggerSubmit">Submit</paper-button>
+          <paper-button on-click="_submit">Submit</paper-button>
         </template>
       </form>
     </iron-form>
@@ -125,7 +125,7 @@
       }
 
       // request token, returns a promise
-      submit() {
+      createToken() {
         return new Promise((resolve, reject) => {
           let form = this.$.form;
 
@@ -172,8 +172,8 @@
         });
       }
 
-      _triggerSubmit() {
-        this.submit().catch((error) => {/* suppress uncaught promise warnings */});
+      _submit() {
+        this.createToken().catch((error) => {/* suppress uncaught promise warnings */});
       }
 
       _clearErrors() {

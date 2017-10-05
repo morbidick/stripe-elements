@@ -13,11 +13,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 70,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 72,
+              "line": 85,
               "column": 11
             }
           },
@@ -32,11 +32,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 74,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 77,
+              "line": 90,
               "column": 11
             }
           },
@@ -53,11 +53,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 79,
+              "line": 92,
               "column": 10
             },
             "end": {
-              "line": 82,
+              "line": 95,
               "column": 11
             }
           },
@@ -73,11 +73,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 84,
+              "line": 97,
               "column": 10
             },
             "end": {
-              "line": 87,
+              "line": 100,
               "column": 11
             }
           },
@@ -93,11 +93,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 89,
+              "line": 102,
               "column": 10
             },
             "end": {
-              "line": 97,
+              "line": 110,
               "column": 11
             }
           },
@@ -108,15 +108,15 @@
         {
           "name": "hideZip",
           "type": "boolean",
-          "description": "Whether to show zip-code field to validate",
+          "description": "Whether to show zip-code field",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 112,
               "column": 10
             },
             "end": {
-              "line": 103,
+              "line": 116,
               "column": 11
             }
           },
@@ -132,11 +132,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 105,
+              "line": 118,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 122,
               "column": 11
             }
           },
@@ -148,16 +148,16 @@
       ],
       "methods": [
         {
-          "name": "submit",
+          "name": "createToken",
           "description": "request token, returns a promise",
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 114,
+              "line": 127,
               "column": 6
             },
             "end": {
-              "line": 145,
+              "line": 172,
               "column": 7
             }
           },
@@ -165,16 +165,16 @@
           "params": []
         },
         {
-          "name": "_triggerSubmit",
+          "name": "_submit",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 147,
+              "line": 174,
               "column": 6
             },
             "end": {
-              "line": 149,
+              "line": 176,
               "column": 7
             }
           },
@@ -187,11 +187,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 151,
+              "line": 178,
               "column": 6
             },
             "end": {
-              "line": 161,
+              "line": 180,
               "column": 7
             }
           },
@@ -204,11 +204,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 163,
+              "line": 182,
               "column": 6
             },
             "end": {
-              "line": 174,
+              "line": 193,
               "column": 7
             }
           },
@@ -225,11 +225,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 176,
+              "line": 195,
               "column": 6
             },
             "end": {
-              "line": 208,
+              "line": 227,
               "column": 7
             }
           },
@@ -249,11 +249,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 64,
+          "line": 77,
           "column": 4
         },
         "end": {
-          "line": 209,
+          "line": 228,
           "column": 5
         }
       },
@@ -266,11 +266,11 @@
           "description": "Your stripe publishable key (https://stripe.com/docs/dashboard#api-keys)",
           "sourceRange": {
             "start": {
-              "line": 70,
+              "line": 83,
               "column": 10
             },
             "end": {
-              "line": 72,
+              "line": 85,
               "column": 11
             }
           },
@@ -282,11 +282,11 @@
           "description": "Stripe token response (https://stripe.com/docs/api#token_object-id)",
           "sourceRange": {
             "start": {
-              "line": 74,
+              "line": 87,
               "column": 10
             },
             "end": {
-              "line": 77,
+              "line": 90,
               "column": 11
             }
           },
@@ -295,14 +295,14 @@
         },
         {
           "name": "hide-zip",
-          "description": "Whether to show zip-code field to validate",
+          "description": "Whether to show zip-code field",
           "sourceRange": {
             "start": {
-              "line": 99,
+              "line": 112,
               "column": 10
             },
             "end": {
-              "line": 103,
+              "line": 116,
               "column": 11
             }
           },
@@ -314,11 +314,11 @@
           "description": "Whether to display the submit button",
           "sourceRange": {
             "start": {
-              "line": 105,
+              "line": 118,
               "column": 10
             },
             "end": {
-              "line": 109,
+              "line": 122,
               "column": 11
             }
           },
