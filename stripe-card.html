@@ -18,7 +18,7 @@
         display: flex;
       }
       .date-separator {
-        margin: 1.6em 0.3em 0;
+        margin: 0.4em 0.3em 0;
         font-size: 1.3em;
       }
       .small {
@@ -51,14 +51,14 @@
 
     <iron-form id="form">
       <form>
-        <paper-input type="number" name="number" placeholder="Card number" auto-validate required></paper-input>
+        <paper-input type="number" name="number" label="Card number" auto-validate required no-label-float></paper-input>
         <div class="vertical">
-          <paper-input class="small" type="number" name="exp_month" placeholder="MM" min="1" max="12" maxlenght="2" auto-validate required></paper-input>
+          <paper-input class="small" type="number" name="exp_month" label="MM" min="1" max="12" maxlenght="2" auto-validate required no-label-float></paper-input>
           <div class="date-separator">/</div>
-          <paper-input class="small" type="number" name="exp_year" placeholder="YY" maxlenght="2" auto-validate required></paper-input>
-          <paper-input class="full" type="number" name="cvc" placeholder="CVC" auto-validate required></paper-input>
+          <paper-input class="small" type="number" name="exp_year" label="YY" maxlenght="2" auto-validate required no-label-float></paper-input>
+          <paper-input class="full" type="number" name="cvc" label="CVC" auto-validate required no-label-float></paper-input>
           <template is="dom-if" if="[[ !hideZip ]]">
-            <paper-input class="full" type="text" name="address_zip" placeholder="ZIP"></paper-input>
+            <paper-input class="full" type="text" name="address_zip" label="ZIP" no-label-float></paper-input>
           </template>
         </div>
         <div id="error"></div>
