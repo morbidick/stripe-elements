@@ -23,6 +23,7 @@
       }
       .small {
         width: 15%;
+        max-width: 2em;
       }
       .full {
         flex-grow: 1;
@@ -34,16 +35,28 @@
         @apply --paper-font-caption;
         @apply --paper-input-error;
       }
+      /* hide input number selector */
+      paper-input[type="number"] {
+        --paper-input-container-input: {
+          -moz-appearance: textfield;
+          appearance: textfield;
+        };
+        --paper-input-container-input-webkit-spinner: {
+          -webkit-appearance: none;
+          appearance: none;
+          margin: 0;
+        };
+      }
     </style>
 
     <iron-form id="form">
       <form>
-        <paper-input type="text" name="number" placeholder="Card number"></paper-input>
+        <paper-input type="number" name="number" placeholder="Card number" auto-validate required></paper-input>
         <div class="vertical">
-          <paper-input class="small" type="text" name="exp_month" placeholder="MM"></paper-input>
+          <paper-input class="small" type="number" name="exp_month" placeholder="MM" min="1" max="12" maxlenght="2" auto-validate required></paper-input>
           <div class="date-separator">/</div>
-          <paper-input class="small" type="text" name="exp_year" placeholder="YY"></paper-input>
-          <paper-input class="full" type="text" name="cvc" placeholder="CVC"></paper-input>
+          <paper-input class="small" type="number" name="exp_year" placeholder="YY" maxlenght="2" auto-validate required></paper-input>
+          <paper-input class="full" type="number" name="cvc" placeholder="CVC" auto-validate required></paper-input>
           <template is="dom-if" if="[[ !hideZip ]]">
             <paper-input class="full" type="text" name="address_zip" placeholder="ZIP"></paper-input>
           </template>
