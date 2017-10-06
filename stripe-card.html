@@ -51,7 +51,7 @@
 
     <iron-form id="form">
       <form>
-        <paper-input type="numeric" name="number" label="Card number" auto-validate required no-label-float on-keyup="_maskCard"></paper-input>
+        <paper-input type="numeric" name="number" label="Card number" auto-validate required no-label-float on-keyup="_maskCard" on-blur="_maskCard"></paper-input>
         <div class="vertical">
           <paper-input class="small" type="number" name="exp_month" label="MM" min="1" max="12" maxlenght="2" auto-validate required no-label-float></paper-input>
           <div class="date-separator">/</div>
@@ -185,8 +185,8 @@
       _maskCard(event) {
         let input = event.composedPath()[0];
 
-        // Bail if disabled or event.code not available
-        if (!this.maskCard || !event.code) { return; };
+        // Bail if disabled
+        if (!this.maskCard) { return; };
 
         // Bail for undo characters
         let ignored_keys = ['Backspace', 'Space', 'Delete'];
