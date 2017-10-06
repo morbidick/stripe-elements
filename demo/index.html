@@ -31,6 +31,17 @@
         </template>
       </demo-snippet>
 
+      <h3>stripe-card with experimental credit card masking</h3>
+      <demo-snippet>
+        <template>
+          <stripe-card
+            publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+            token="{{ response }}"
+            mask-card
+          ></stripe-card>
+        </template>
+      </demo-snippet>
+
       <h3>stripe-card with data binding</h3>
       <demo-snippet>
         <template is="dom-bind" id="scope">

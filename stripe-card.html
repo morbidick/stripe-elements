@@ -51,7 +51,7 @@
 
     <iron-form id="form">
       <form>
-        <paper-input type="number" name="number" label="Card number" auto-validate required no-label-float></paper-input>
+        <paper-input type="numeric" name="number" label="Card number" auto-validate required no-label-float on-keyup="_maskCard"></paper-input>
         <div class="vertical">
           <paper-input class="small" type="number" name="exp_month" label="MM" min="1" max="12" maxlenght="2" auto-validate required no-label-float></paper-input>
           <div class="date-separator">/</div>
@@ -121,6 +121,12 @@
             value: false,
             reflectToAttribute: true,
           },
+          // Whether to use experimental credit card masking
+          maskCard: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true,
+          },
         };
       }
 
@@ -170,6 +176,20 @@
             });
           });
         });
+      }
+
+      _maskCard(event) {
+        // Bail if disabled or event.code not available
+        if (!this.maskCard || !event.code) { return; };
+
+        // Bail for undo characters
+        let ignored_keys = ['Backspace', 'Space', 'Delete'];
+        if (ignored_keys.includes(event.code)) { return; };
+
+        let input = event.composedPath()[0];
+        if (input.value.length % 5 == 4) {
+          input.value = input.value + " ";
+        }
       }
 
       _submit() {
