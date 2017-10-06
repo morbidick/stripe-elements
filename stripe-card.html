@@ -14,20 +14,30 @@
       :host {
         display: block;
       }
-      .vertical {
-        display: flex;
-      }
       .date-separator {
         margin: 0.4em 0.3em 0;
         font-size: 1.3em;
       }
-      .small {
-        width: 15%;
-        max-width: 2em;
+      .horizontal {
+        display: flex;
       }
-      .full {
+      .wrap {
+        flex-wrap: wrap;
+      }
+      .wrap > *, #error {
+        margin: 0 0.5em;
+      }
+      .small {
+        width: 2em;
+        flex-shrink: 0;
+      }
+      .medium {
         flex-grow: 1;
-        margin-left: 1em;
+        width: 8em;
+      }
+      .large {
+        flex-grow: 2;
+        min-width: 20em;
       }
       #error {
         min-height: 1em;
@@ -51,14 +61,16 @@
 
     <iron-form id="form">
       <form>
-        <paper-input type="numeric" name="number" label="Card number" auto-validate required no-label-float on-keyup="_maskCard" on-blur="_maskCard"></paper-input>
-        <div class="vertical">
-          <paper-input class="small" type="number" name="exp_month" label="MM" min="1" max="12" maxlenght="2" auto-validate required no-label-float></paper-input>
-          <div class="date-separator">/</div>
-          <paper-input class="small" type="number" name="exp_year" label="YY" maxlenght="2" auto-validate required no-label-float></paper-input>
-          <paper-input class="full" type="number" name="cvc" label="CVC" auto-validate required no-label-float></paper-input>
+        <div class="horizontal wrap">
+          <paper-input class="large" type="numeric" name="number" label="Card number" auto-validate required no-label-float on-keyup="_maskCard" on-blur="_maskCard"></paper-input>
+          <div class="horizontal">
+            <paper-input class="small" type="number" name="exp_month" label="MM" min="1" max="12" maxlenght="2" auto-validate required no-label-float></paper-input>
+            <div class="date-separator">/</div>
+            <paper-input class="small" type="number" name="exp_year" label="YY" maxlenght="2" auto-validate required no-label-float></paper-input>
+          </div>
+          <paper-input class="medium" type="number" name="cvc" label="CVC" auto-validate required no-label-float></paper-input>
           <template is="dom-if" if="[[ !hideZip ]]">
-            <paper-input class="full" type="text" name="address_zip" label="ZIP" no-label-float></paper-input>
+            <paper-input class="medium" type="text" name="address_zip" label="ZIP" no-label-float></paper-input>
           </template>
         </div>
         <div id="error"></div>
