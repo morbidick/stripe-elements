@@ -127,6 +127,10 @@
             value: false,
             reflectToAttribute: true,
           },
+          maskChar: {
+            type: String,
+            value: ' ',
+          },
         };
       }
 
@@ -179,6 +183,8 @@
       }
 
       _maskCard(event) {
+        let input = event.composedPath()[0];
+
         // Bail if disabled or event.code not available
         if (!this.maskCard || !event.code) { return; };
 
@@ -186,10 +192,39 @@
         let ignored_keys = ['Backspace', 'Space', 'Delete'];
         if (ignored_keys.includes(event.code)) { return; };
 
-        let input = event.composedPath()[0];
-        if (input.value.length % 5 == 4) {
-          input.value = input.value + " ";
+        // Decide on masking complexity depending on cursor position
+        if (input.value.length == input.selectionStart) {
+          this._maskCardSimple(input);
+        } else {
+          this._maskCardFull(input);
         }
+      }
+
+      // insert new space every 4th number
+      _maskCardSimple(input) {
+        if (input.value.length % 5 == 4) {
+          input.value = input.value + this.maskChar;
+        }
+      }
+
+      // realigns the whole input
+      _maskCardFull(input) {
+        let value = input.value;
+        let cursor = input.selectionStart;
+
+        // remove all masking characters
+        value = value.replace(new RegExp(this.maskChar, 'g'), '');
+
+        // split in parts of 4 digits
+        value = value.match(/.{1,4}/g);
+
+        // join by mask char
+        value = value.join(this.maskChar);
+
+        input.value = value;
+        // set cursor to old position
+        // TODO: handle offsite by new spaces
+        input.selectionStart, input.selectionEnd = cursor;
       }
 
       _submit() {
