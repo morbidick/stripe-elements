@@ -62,7 +62,7 @@
     <iron-form id="form">
       <form>
         <div class="horizontal wrap">
-          <paper-input class="large" type="numeric" name="number" label="Card number" auto-validate required no-label-float on-keyup="_maskCard" on-blur="_maskCard"></paper-input>
+          <paper-input id="cardNumber" class="large" type="tel" allowed-pattern="[0-9 ]" name="number" label="Card number" auto-validate required no-label-float on-value-changed="_maskCard"></paper-input>
           <div class="horizontal">
             <paper-input class="small" type="number" name="exp_month" label="MM" min="1" max="12" maxlenght="2" auto-validate required no-label-float></paper-input>
             <div class="date-separator">/</div>
@@ -195,47 +195,33 @@
       }
 
       _maskCard(event) {
-        let input = event.composedPath()[0];
-
         // Bail if disabled
         if (!this.maskCard) { return; };
 
-        // Bail for undo characters
-        let ignored_keys = ['Backspace', 'Space', 'Delete'];
-        if (ignored_keys.includes(event.code)) { return; };
-
-        // Decide on masking complexity depending on cursor position
-        if (input.value.length == input.selectionStart) {
-          this._maskCardSimple(input);
-        } else {
-          this._maskCardFull(input);
-        }
-      }
-
-      // insert new space every 4th number
-      _maskCardSimple(input) {
-        if (input.value.length % 5 == 4) {
-          input.value = input.value + this.maskChar;
-        }
-      }
-
-      // realigns the whole input
-      _maskCardFull(input) {
+        let input = event.composedPath()[0]._focusableElement;
         let value = input.value;
         let cursor = input.selectionStart;
+        let previousCharASpace = value ? String(value).charAt(cursor - 1) == this.maskChar : false;
 
-        // remove all masking characters
-        value = value.replace(new RegExp(this.maskChar, 'g'), '');
+        // Bail if empty
+        if (!value) { return };
 
-        // split in parts of 4 digits
-        value = value.match(/.{1,4}/g);
+        value = value
+          // remove all masking characters
+          .replace(new RegExp(this.maskChar, 'g'), '')
+          // split in parts of 4 digits
+          .match(/.{1,4}/g)
+          // join by mask char
+          .join(this.maskChar);
 
-        // join by mask char
-        value = value.join(this.maskChar);
+        // If the character right before the selection is a newly inserted
+        // maskChar, we need to advance the selection to maintain the caret position.
+        if (!previousCharASpace && value.charAt(cursor - 1) == this.maskChar) {
+          cursor = cursor + 1;
+        }
 
         input.value = value;
-        // set cursor to old position
-        // TODO: handle offsite by new spaces
+        // set cursor
         input.selectionStart, input.selectionEnd = cursor;
       }
 
