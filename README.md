@@ -13,8 +13,13 @@ Simple component talking directly with the [Stripe](https://stripe.com/) [token 
 <stripe-card
   publishable-key="pk_your_key"
   token="{{ token }}"
+  mask-card
 ></stripe-card>
 ```
+
+#### Styling
+
+You can use the paper-style variables to change the look and feel of the form.
 
 ## Development
 

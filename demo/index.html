@@ -52,6 +52,23 @@
           <show-json hide-copy-button json="{{ response }}"></show-json>
         </template>
       </demo-snippet>
+
+      <h3>stripe-card with customization</h3>
+      <demo-snippet>
+        <template>
+          <style is="custom-style">
+            stripe-card {
+              color: violet;
+              --paper-input-container-color: green;
+            }
+          </style>
+          <stripe-card
+            publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+            token="{{ response }}"
+          ></stripe-card>
+          <show-json hide-copy-button json="{{ response }}"></show-json>
+        </template>
+      </demo-snippet>
     </div>
   </body>
 </html>
