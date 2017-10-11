@@ -194,6 +194,12 @@
         });
       }
 
+      reset() {
+        this._clearErrors();
+        this.$.form.reset();
+        this.token = undefined;
+      }
+
       _maskCard(event) {
         // Bail if disabled
         if (!this.maskCard) { return; };
