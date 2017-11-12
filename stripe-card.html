@@ -185,7 +185,7 @@
               this.token = body;
               return resolve(body);
             } else if (body.error) {
-              this._displayError(body.error);
+              this.displayError(body.error);
               return reject(body.error);
             } else {
               return reject({
@@ -248,7 +248,7 @@
         this.$.error.innerText = "";
       }
 
-      _displayError(error) {
+      displayError(error) {
         if (error.type == "card_error" && error.param) {
           let element = this.$.form.querySelectorAll(`[name="${error.param}"]`)[0];
           element.invalid = true;
