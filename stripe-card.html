@@ -143,12 +143,19 @@
             type: String,
             value: ' ',
           },
+          // Is true when the request is processing
+          loading: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
         };
       }
 
       // request token, returns a promise
       createToken() {
         return new Promise((resolve, reject) => {
+          this.loading = true;
           let form = this.$.form;
 
           // some basic client side validation
@@ -173,11 +180,12 @@
             this._clearErrors();
             return response.json();
           }).then((body) => {
+            this.loading = false;
             if (body.id) {
               this.token = body;
               return resolve(body);
             } else if (body.error) {
-              this._displayError(body.error);
+              this.displayError(body.error);
               return reject(body.error);
             } else {
               return reject({
@@ -186,6 +194,7 @@
               });
             }
           }).catch((error)=> {
+            this.loading = false;
             return reject({
               type: 'api_connection_error',
               message: 'Connection to Stripe api failed.'
@@ -239,14 +248,16 @@
         this.$.error.innerText = "";
       }
 
-      _displayError(error) {
+      displayError(error) {
         if (error.type == "card_error" && error.param) {
-          let element = this.$.form.querySelectorAll(`[name="${error.param}"]`)[0];
-          element.invalid = true;
+          let element = this.$.form.querySelector(`[name="${error.param}"]`);
 
-          if (error.param == "number") {
-            element.errorMessage = error.message;
-            return;
+          if (element) {
+            element.invalid = true;
+            if (error.param == "number") {
+              element.errorMessage = error.message;
+              return;
+            }
           }
         }
         this.$.error.innerText = error.message;
