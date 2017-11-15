@@ -13,11 +13,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 83,
+              "line": 95,
               "column": 10
             },
             "end": {
-              "line": 85,
+              "line": 97,
               "column": 11
             }
           },
@@ -32,11 +32,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 87,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 90,
+              "line": 102,
               "column": 11
             }
           },
@@ -53,11 +53,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 92,
+              "line": 104,
               "column": 10
             },
             "end": {
-              "line": 95,
+              "line": 107,
               "column": 11
             }
           },
@@ -73,11 +73,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 97,
+              "line": 109,
               "column": 10
             },
             "end": {
-              "line": 100,
+              "line": 112,
               "column": 11
             }
           },
@@ -93,11 +93,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 102,
+              "line": 114,
               "column": 10
             },
             "end": {
-              "line": 110,
+              "line": 122,
               "column": 11
             }
           },
@@ -112,11 +112,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 112,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 116,
+              "line": 128,
               "column": 11
             }
           },
@@ -132,16 +132,78 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 118,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 122,
+              "line": 134,
               "column": 11
             }
           },
           "metadata": {
             "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "maskCard",
+          "type": "boolean",
+          "description": "Whether to use experimental credit card masking",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 136,
+              "column": 10
+            },
+            "end": {
+              "line": 140,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "maskChar",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 141,
+              "column": 10
+            },
+            "end": {
+              "line": 144,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\" \""
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Is true when the request is processing",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 150,
+              "column": 11
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "notify": true
+            }
           },
           "defaultValue": "false"
         }
@@ -153,11 +215,11 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 127,
+              "line": 155,
               "column": 6
             },
             "end": {
-              "line": 172,
+              "line": 203,
               "column": 7
             }
           },
@@ -165,16 +227,54 @@
           "params": []
         },
         {
+          "name": "reset",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 205,
+              "column": 6
+            },
+            "end": {
+              "line": 209,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_maskCard",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 211,
+              "column": 6
+            },
+            "end": {
+              "line": 240,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": [
+            {
+              "name": "event"
+            }
+          ]
+        },
+        {
           "name": "_submit",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 174,
+              "line": 242,
               "column": 6
             },
             "end": {
-              "line": 176,
+              "line": 244,
               "column": 7
             }
           },
@@ -187,11 +287,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 178,
+              "line": 246,
               "column": 6
             },
             "end": {
-              "line": 180,
+              "line": 248,
               "column": 7
             }
           },
@@ -199,16 +299,16 @@
           "params": []
         },
         {
-          "name": "_displayError",
+          "name": "displayError",
           "description": "",
-          "privacy": "protected",
+          "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 182,
+              "line": 250,
               "column": 6
             },
             "end": {
-              "line": 193,
+              "line": 263,
               "column": 7
             }
           },
@@ -225,11 +325,11 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 195,
+              "line": 265,
               "column": 6
             },
             "end": {
-              "line": 227,
+              "line": 297,
               "column": 7
             }
           },
@@ -249,11 +349,11 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 77,
+          "line": 89,
           "column": 4
         },
         "end": {
-          "line": 228,
+          "line": 298,
           "column": 5
         }
       },
@@ -266,11 +366,11 @@
           "description": "Your stripe publishable key (https://stripe.com/docs/dashboard#api-keys)",
           "sourceRange": {
             "start": {
-              "line": 83,
+              "line": 95,
               "column": 10
             },
             "end": {
-              "line": 85,
+              "line": 97,
               "column": 11
             }
           },
@@ -282,11 +382,11 @@
           "description": "Stripe token response (https://stripe.com/docs/api#token_object-id)",
           "sourceRange": {
             "start": {
-              "line": 87,
+              "line": 99,
               "column": 10
             },
             "end": {
-              "line": 90,
+              "line": 102,
               "column": 11
             }
           },
@@ -298,11 +398,11 @@
           "description": "Whether to show zip-code field",
           "sourceRange": {
             "start": {
-              "line": 112,
+              "line": 124,
               "column": 10
             },
             "end": {
-              "line": 116,
+              "line": 128,
               "column": 11
             }
           },
@@ -314,11 +414,59 @@
           "description": "Whether to display the submit button",
           "sourceRange": {
             "start": {
-              "line": 118,
+              "line": 130,
               "column": 10
             },
             "end": {
-              "line": 122,
+              "line": 134,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "mask-card",
+          "description": "Whether to use experimental credit card masking",
+          "sourceRange": {
+            "start": {
+              "line": 136,
+              "column": 10
+            },
+            "end": {
+              "line": 140,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "mask-char",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 141,
+              "column": 10
+            },
+            "end": {
+              "line": 144,
+              "column": 11
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "loading",
+          "description": "Is true when the request is processing",
+          "sourceRange": {
+            "start": {
+              "line": 146,
+              "column": 10
+            },
+            "end": {
+              "line": 150,
               "column": 11
             }
           },
@@ -331,6 +479,12 @@
           "type": "CustomEvent",
           "name": "token-changed",
           "description": "Fired when the `token` property changes.",
+          "metadata": {}
+        },
+        {
+          "type": "CustomEvent",
+          "name": "loading-changed",
+          "description": "Fired when the `loading` property changes.",
           "metadata": {}
         }
       ],
