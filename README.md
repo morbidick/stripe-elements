@@ -9,6 +9,17 @@ Simple component talking directly with the [Stripe](https://stripe.com/) [token 
 
 ### \<stripe-card\>
 
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="stripe-card.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+
 ```html
 <stripe-card
   publishable-key="pk_your_key"
