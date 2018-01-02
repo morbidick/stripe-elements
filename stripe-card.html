@@ -205,7 +205,7 @@
       reset() {
         this._clearErrors();
         this.$.form.reset();
-        this.token = undefined;
+        this.token = null; // see https://github.com/Polymer/polymer/issues/2565
       }
 
       _maskCard(event) {
