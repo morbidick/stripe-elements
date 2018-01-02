@@ -13,6 +13,7 @@ Simple component talking directly with the [Stripe](https://stripe.com/) [token 
 ```
 <custom-element-demo>
   <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="stripe-card.html">
     <next-code-block></next-code-block>
   </template>
