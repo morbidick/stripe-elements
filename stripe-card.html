@@ -74,7 +74,7 @@
         </div>
         <div id="error"></div>
         <template is="dom-if" if="[[ !hideSubmit ]]">
-          <paper-button on-click="_submit">Submit</paper-button>
+          <paper-button on-click="_submit">[[submitLabel]]</paper-button>
         </template>
       </form>
     </iron-form>
@@ -144,6 +144,10 @@
             type: Boolean,
             value: false,
             notify: true,
+          },
+          submitLabel: {
+            type: String,
+            default: 'Submit',
           },
         };
       }
