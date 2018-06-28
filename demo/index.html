@@ -6,13 +6,12 @@
 
     <title>stripe-elements demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
-    <link rel="import" href="../../show-json/show-json.html">
-    <link rel="import" href="../stripe-card.html">
+    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-snippet.js"></script>
+    <script type="module" src="../node_modules/@polymer/polymer/lib/elements/dom-bind.js"></script>
+    <script type="module" src="../stripe-card.js"></script>
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
@@ -24,10 +23,7 @@
       <h3>stripe-card demo</h3>
       <demo-snippet>
         <template>
-          <stripe-card
-            publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-            token="{{ response }}"
-          ></stripe-card>
+          <stripe-card></stripe-card>
         </template>
       </demo-snippet>
 
@@ -36,11 +32,10 @@
         <template>
           <dom-bind>
             <template is="dom-bind">
-              <stripe-card
-                publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-                token="{{ response }}"
-              ></stripe-card>
-              <show-json hide-copy-button json="{{ response }}"></show-json>
+              <stripe-card publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh" token="{{ response }}"></stripe-card>
+              <code>
+                {{ response }}
+              </code>
             </template>
           </dom-bind>
         </template>
@@ -55,12 +50,7 @@
               --paper-input-container-color: green;
             }
           </style>
-          <stripe-card
-            class="custom"
-            publishable-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-            token="{{ response }}"
-          ></stripe-card>
-          <show-json hide-copy-button json="{{ response }}"></show-json>
+          <stripe-card class="custom"></stripe-card>
         </template>
       </demo-snippet>
     </div>

@@ -1,12 +1,16 @@
 {
-  "name": "stripe-elements",
   "description": "Components to interact with stripe",
+  "name": "@morbidick/stripe-elements",
   "author": "morbidick",
   "license": "MIT",
-  "main": "stripe-card.html",
+  "version": "3.0.0",
+  "main": "stripe-card.js",
   "devDependencies": {
-    "bower": "^1.8.0",
-    "polymer-cli": "^1.0.0"
+    "polymer-cli": "^1.7.2",
+    "@polymer/iron-component-page": "^3.0.0-pre.18",
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
+    "wct-browser-legacy": "^0.0.1-pre.11",
+    "@webcomponents/webcomponentsjs": "^2.0.0"
   },
   "scripts": {
     "start": "npm run serve",
@@ -15,9 +19,20 @@
     "build": "polymer build",
     "analyze": "polymer analyze > analysis.json",
     "lint": "polymer lint",
-    "test": "polymer test",
-    "postinstall": "bower install",
-    "wcinstall": "bower install --save",
-    "wcupdate": "bower update"
+    "test": "polymer test"
+  },
+  "resolutions": {
+    "inherits": "2.0.3",
+    "samsam": "1.1.3",
+    "supports-color": "3.1.2",
+    "type-detect": "1.0.0",
+    "@webcomponents/webcomponentsjs": "2.0.0-beta.2"
+  },
+  "dependencies": {
+    "@polymer/iron-form": "^3.0.0-pre.18",
+    "@polymer/paper-button": "^3.0.0-pre.18",
+    "@polymer/paper-input": "^3.0.0-pre.18",
+    "@polymer/paper-styles": "^3.0.0-pre.18",
+    "@polymer/polymer": "^3.0.0"
   }
 }
