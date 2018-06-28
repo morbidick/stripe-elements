@@ -1,17 +1,46 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import '@polymer/polymer/lib/elements/dom-if.js';
+import { LitElement, html } from '@polymer/lit-element';
 import '@polymer/iron-form/iron-form.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-styles/default-theme.js';
 import '@polymer/paper-styles/typography.js';
+
 /**
  * @customElement
- * @polymer
- * @extends {Polymer.Element}
+ * @extends {LitElement}
  */
-class StripeCard extends PolymerElement {
-  static get template() {
+class StripeCard extends LitElement {
+  static get is() { return 'stripe-card'; }
+
+  static get properties() {
+    return {
+      // Your stripe publishable key (https://stripe.com/docs/dashboard#api-keys)
+      publishableKey: String,
+      // Stripe token response (https://stripe.com/docs/api#token_object-id)
+      token: Object,
+      // Stripe api endpoint
+      _apiUrl: String,
+      // Whether to show zip-code field
+      hideZip: Boolean,
+      // Whether to display the submit button
+      hideSubmit: Boolean,
+      // Label for the submit button (defaults to Submit)
+      submitLabel: String,
+      // the masking character to use, defaults to space
+      maskChar: String,
+      // Is true when the request is processing
+      loading: Boolean,
+    };
+  }
+
+  constructor() {
+    super();
+    this.maskChar = ' ';
+    this.submitLabel = 'Submit';
+    this.apiUrl = 'https://api.stripe.com/v1/tokens';
+  }
+
+  _render({hideSubmit, hideZip, submitLabel}) {
     return html`
     <style>
       :host {
@@ -65,91 +94,27 @@ class StripeCard extends PolymerElement {
     <iron-form id="form">
       <form>
         <div class="horizontal wrap">
-          <paper-input id="cardNumber" class="large" type="tel" allowed-pattern="[0-9 ]" name="number" label="Card number" auto-validate="" required="" no-label-float="" on-value-changed="_maskCard"></paper-input>
+          <paper-input id="cardNumber" class="large" type="tel" allowed-pattern="[0-9 ]" name="number" label="Card number" auto-validate="" required="" no-label-float="" on-value-changed=${(e) => this._maskCard(e)}></paper-input>
           <div class="horizontal">
             <paper-input class="small" type="tel" name="exp_month" label="MM" min="1" max="12" maxlength="2" auto-validate="" required="" no-label-float=""></paper-input>
             <div class="date-separator">/</div>
             <paper-input class="small" type="tel" name="exp_year" label="YY" maxlength="2" auto-validate="" required="" no-label-float=""></paper-input>
           </div>
           <paper-input class="medium" type="tel" name="cvc" label="CVC" maxlength="4" auto-validate="" required="" no-label-float=""></paper-input>
-          <template is="dom-if" if="[[ !hideZip ]]">
-            <paper-input class="medium" type="text" name="address_zip" label="ZIP" no-label-float=""></paper-input>
-          </template>
+          <paper-input hidden?=${hideZip} class="medium" type="text" name="address_zip" label="ZIP" no-label-float=""></paper-input>
         </div>
         <div id="error"></div>
-        <template is="dom-if" if="[[ !hideSubmit ]]">
-          <paper-button on-click="_submit">[[submitLabel]]</paper-button>
-        </template>
+        <paper-button hidden?=${hideSubmit} on-click=${() => this._submit()}>${submitLabel}</paper-button>
       </form>
     </iron-form>
   `;}
 
-  static get is() { return 'stripe-card'; }
-
-  static get properties() {
-    return {
-      // Your stripe publishable key (https://stripe.com/docs/dashboard#api-keys)
-      publishableKey: {
-        type: String,
-      },
-      // Stripe token response (https://stripe.com/docs/api#token_object-id)
-      token: {
-        type: Object,
-        notify: true,
-      },
-      // Stripe api endpoint
-      _apiUrl: {
-        type: String,
-        value: 'https://api.stripe.com/v1/tokens',
-      },
-      // Stripe api headers Object
-      _apiHeaders: {
-        type: Object,
-        value: () => {
-          return new Headers({
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Accept": "application/json",
-            // Stripe api version (https://stripe.com/docs/api#versioning)
-            "Stripe-Version": "2017-12-14",
-          });
-        },
-      },
-      // Whether to show zip-code field
-      hideZip: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-      },
-      // Whether to display the submit button
-      hideSubmit: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-      },
-      maskChar: {
-        type: String,
-        value: ' ',
-      },
-      // Is true when the request is processing
-      loading: {
-        type: Boolean,
-        value: false,
-        notify: true,
-      },
-      submitLabel: {
-        type: String,
-        value: 'Submit',
-      },
-    };
-  }
-
   // request token, returns a promise
   async createToken() {
     this.loading = true;
-    let form = this.$.form;
 
     // some basic client side validation
-    if (!form.validate()) {
+    if (!this.$form.validate()) {
       throw {
         type: 'form_validation',
       };
@@ -158,15 +123,15 @@ class StripeCard extends PolymerElement {
     let payload = {
       'key': this.publishableKey,
       'referrer': document.location.href,
-      'card': form.serializeForm(),
+      'card': this.$form.serializeForm(),
     };
 
     let body;
     try {
-      let response = await fetch(this._apiUrl, {
+      let response = await fetch(this.apiUrl, {
         method: 'POST',
         body: this._nestedQueryString(payload),
-        headers: this._apiHeaders,
+        headers: this.apiHeaders,
       });
       body = await response.json();
     } catch(error) {
@@ -183,6 +148,13 @@ class StripeCard extends PolymerElement {
 
     if (body.id) {
       this.token = body;
+      this.dispatchEvent(new CustomEvent('token-changed', {
+        detail: {
+          value: body,
+        },
+        bubbles: false,
+        composed: true,
+      }));
       return body;
     } else if (body.error) {
       this.displayError(body.error);
@@ -197,7 +169,7 @@ class StripeCard extends PolymerElement {
 
   reset() {
     this._clearErrors();
-    this.$.form.reset();
+    this.$form.reset();
     this.token = null; // see https://github.com/Polymer/polymer/issues/2565
   }
 
@@ -234,12 +206,12 @@ class StripeCard extends PolymerElement {
   }
 
   _clearErrors() {
-    this.$.error.innerText = "";
+    this.$error.innerText = "";
   }
 
   displayError(error) {
     if (error.type == "card_error" && error.param) {
-      let element = this.$.form.querySelector(`[name="${error.param}"]`);
+      let element = this.$form.querySelector(`[name="${error.param}"]`);
 
       if (element) {
         element.invalid = true;
@@ -249,7 +221,7 @@ class StripeCard extends PolymerElement {
         }
       }
     }
-    this.$.error.innerText = error.message;
+    this.$error.innerText = error.message;
   }
 
   _nestedQueryString(params, parent) {
@@ -285,5 +257,52 @@ class StripeCard extends PolymerElement {
     }
     return queryParts.join('&');
   }
+
+  /**
+   * Cache and expose internal form
+   */
+  get $form() {
+    return this._$form = this._$form || this._root.querySelector('#form');
+  }
+
+  /**
+   * Cache and expose internal error element
+   */
+  get $error() {
+    return this._$error = this._$error || this._root.querySelector('#error');
+  }
+
+  /**
+   * Stripe api headers Object
+   */
+  get apiHeaders() {
+    return this._apiHeaders = this._apiHeaders || new Headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept": "application/json",
+      // Stripe api version (https://stripe.com/docs/api#versioning)
+      // Stripe api changelog (https://stripe.com/docs/upgrades#api-changelog)
+      "Stripe-Version": "2018-05-21",
+    });
+  }
+
+  set loading(value) {
+    const isLoading = Boolean(value);
+    if (isLoading) {
+      this.setAttribute('loading', '');
+    } else {
+      this.removeAttribute('loading');
+    }
+    this.dispatchEvent(new CustomEvent('loading-changed', {
+      detail: {
+        value: isLoading,
+      },
+      bubbles: false,
+      composed: true,
+    }));
+  }
+  get loading() {
+    return this.hasAttribute('loading');
+  }
 }
+
 customElements.define(StripeCard.is, StripeCard);
