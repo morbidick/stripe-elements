@@ -9,6 +9,13 @@
     "url" : "https://github.com/morbidick/stripe-elements"
   },
   "main": "stripe-card.js",
+  "dependencies": {
+    "@polymer/iron-form": "^3.0.0-pre.18",
+    "@polymer/lit-element": "^0.5.2",
+    "@polymer/paper-button": "^3.0.0-pre.18",
+    "@polymer/paper-input": "^3.0.0-pre.18",
+    "@polymer/paper-styles": "^3.0.0-pre.18"
+  },
   "devDependencies": {
     "polymer-cli": "^1.7.2",
     "@polymer/iron-component-page": "^3.0.0-pre.18",
@@ -18,25 +25,12 @@
   },
   "scripts": {
     "start": "npm run serve",
-    "init": "polymer init",
+    "publish": "np",
     "serve": "polymer serve",
     "build": "polymer build",
     "analyze": "polymer analyze > analysis.json",
     "lint": "polymer lint",
-    "test": "polymer test"
-  },
-  "resolutions": {
-    "inherits": "2.0.3",
-    "samsam": "1.1.3",
-    "supports-color": "3.1.2",
-    "type-detect": "1.0.0",
-    "@webcomponents/webcomponentsjs": "2.0.0-beta.2"
-  },
-  "dependencies": {
-    "@polymer/iron-form": "^3.0.0-pre.18",
-    "@polymer/lit-element": "^0.5.2",
-    "@polymer/paper-button": "^3.0.0-pre.18",
-    "@polymer/paper-input": "^3.0.0-pre.18",
-    "@polymer/paper-styles": "^3.0.0-pre.18"
+    "test": "npm run lint #&& polymer test"
   }
+
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.1 - 2018-06-29
+
+* add Changelog
+* package.json cleanup
+
 ## 3.0.0 - 2018-06-28
 
 * migration to npm and lit-element

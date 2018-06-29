@@ -288,6 +288,7 @@ class StripeCard extends LitElement {
     } else {
       this.removeAttribute('loading');
     }
+    this._setProperty('loading', isLoading);
     this.dispatchEvent(new CustomEvent('loading-changed', {
       detail: {
         value: isLoading,
