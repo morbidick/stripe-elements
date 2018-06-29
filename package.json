@@ -5,8 +5,8 @@
   "license": "MIT",
   "version": "3.0.0",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/morbidick/stripe-elements"
+    "type": "git",
+    "url": "https://github.com/morbidick/stripe-elements"
   },
   "main": "stripe-card.js",
   "dependencies": {
@@ -17,11 +17,12 @@
     "@polymer/paper-styles": "^3.0.0-pre.18"
   },
   "devDependencies": {
-    "polymer-cli": "^1.7.2",
     "@polymer/iron-component-page": "^3.0.0-pre.18",
     "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
-    "wct-browser-legacy": "^0.0.1-pre.11",
-    "@webcomponents/webcomponentsjs": "^2.0.0"
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "np": "^3.0.4",
+    "polymer-cli": "^1.7.2",
+    "wct-browser-legacy": "^0.0.1-pre.11"
   },
   "scripts": {
     "start": "npm run serve",
@@ -32,5 +33,4 @@
     "lint": "polymer lint",
     "test": "npm run lint #&& polymer test"
   }
-
 }
