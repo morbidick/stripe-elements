@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "npm run serve",
-    "publish": "np",
+    "publish": "np --no-cleanup",
     "serve": "polymer serve",
     "build": "polymer build",
     "analyze": "polymer analyze > analysis.json",
