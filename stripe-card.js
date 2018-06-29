@@ -5,6 +5,18 @@ import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-styles/default-theme.js';
 import '@polymer/paper-styles/typography.js';
 
+// Stripe api headers Object
+const apiHeaders = new Headers({
+  "Content-Type": "application/x-www-form-urlencoded",
+  "Accept": "application/json",
+  // Stripe api version (https://stripe.com/docs/api#versioning)
+  // Stripe api changelog (https://stripe.com/docs/upgrades#api-changelog)
+  "Stripe-Version": "2018-05-21",
+});
+
+// Stripe api endpoint
+const apiUrl = 'https://api.stripe.com/v1/tokens';
+
 /**
  * @customElement
  * @extends {LitElement}
@@ -18,8 +30,6 @@ class StripeCard extends LitElement {
       publishableKey: String,
       // Stripe token response (https://stripe.com/docs/api#token_object-id)
       token: Object,
-      // Stripe api endpoint
-      _apiUrl: String,
       // Whether to show zip-code field
       hideZip: Boolean,
       // Whether to display the submit button
@@ -37,7 +47,6 @@ class StripeCard extends LitElement {
     super();
     this.maskChar = ' ';
     this.submitLabel = 'Submit';
-    this.apiUrl = 'https://api.stripe.com/v1/tokens';
   }
 
   _render({hideSubmit, hideZip, submitLabel}) {
@@ -128,10 +137,10 @@ class StripeCard extends LitElement {
 
     let body;
     try {
-      let response = await fetch(this.apiUrl, {
+      let response = await fetch(apiUrl, {
         method: 'POST',
         body: this._nestedQueryString(payload),
-        headers: this.apiHeaders,
+        headers: apiHeaders,
       });
       body = await response.json();
     } catch(error) {
@@ -270,19 +279,6 @@ class StripeCard extends LitElement {
    */
   get $error() {
     return this._$error = this._$error || this._root.querySelector('#error');
-  }
-
-  /**
-   * Stripe api headers Object
-   */
-  get apiHeaders() {
-    return this._apiHeaders = this._apiHeaders || new Headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Accept": "application/json",
-      // Stripe api version (https://stripe.com/docs/api#versioning)
-      // Stripe api changelog (https://stripe.com/docs/upgrades#api-changelog)
-      "Stripe-Version": "2018-05-21",
-    });
   }
 
   set loading(value) {
