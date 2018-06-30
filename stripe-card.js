@@ -40,6 +40,8 @@ class StripeCard extends LitElement {
       maskChar: String,
       // Is true when the request is processing
       loading: Boolean,
+      // error text
+      error: String,
     };
   }
 
@@ -49,7 +51,7 @@ class StripeCard extends LitElement {
     this.submitLabel = 'Submit';
   }
 
-  _render({hideSubmit, hideZip, submitLabel}) {
+  _render({error, hideSubmit, hideZip, submitLabel}) {
     return html`
     <style>
       :host {
@@ -112,7 +114,7 @@ class StripeCard extends LitElement {
           <paper-input class="medium" type="tel" name="cvc" label="CVC" maxlength="4" auto-validate="" required="" no-label-float=""></paper-input>
           <paper-input hidden?=${hideZip} class="medium" type="text" name="address_zip" label="ZIP" no-label-float=""></paper-input>
         </div>
-        <div id="error"></div>
+        <div id="error">${error}</div>
         <paper-button hidden?=${hideSubmit} on-click=${() => this._submit()}>${submitLabel}</paper-button>
       </form>
     </iron-form>
@@ -153,7 +155,7 @@ class StripeCard extends LitElement {
     }
 
     this.loading = false;
-    this._clearErrors();
+    this.error = null;
 
     if (body.id) {
       this.token = body;
@@ -177,7 +179,7 @@ class StripeCard extends LitElement {
   }
 
   reset() {
-    this._clearErrors();
+    this.error = null;
     this.$form.reset();
     this.token = null; // see https://github.com/Polymer/polymer/issues/2565
   }
@@ -214,10 +216,6 @@ class StripeCard extends LitElement {
     this.createToken().catch((error) => {/* suppress uncaught promise warnings */});
   }
 
-  _clearErrors() {
-    this.$error.innerText = "";
-  }
-
   displayError(error) {
     if (error.type == "card_error" && error.param) {
       let element = this.$form.querySelector(`[name="${error.param}"]`);
@@ -230,7 +228,7 @@ class StripeCard extends LitElement {
         }
       }
     }
-    this.$error.innerText = error.message;
+    this.error = error.message;
   }
 
   _nestedQueryString(params, parent) {
@@ -272,13 +270,6 @@ class StripeCard extends LitElement {
    */
   get $form() {
     return this._$form = this._$form || this._root.querySelector('#form');
-  }
-
-  /**
-   * Cache and expose internal error element
-   */
-  get $error() {
-    return this._$error = this._$error || this._root.querySelector('#error');
   }
 
   set loading(value) {
