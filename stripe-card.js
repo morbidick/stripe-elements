@@ -269,7 +269,7 @@ class StripeCard extends LitElement {
    * Cache and expose internal form
    */
   get $form() {
-    return this._$form = this._$form || this._root.querySelector('#form');
+    return this._$form = this._$form || this.shadowRoot.querySelector('#form');
   }
 
   set loading(value) {
