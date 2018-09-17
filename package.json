@@ -20,13 +20,11 @@
     "@polymer/iron-component-page": "^4.0.1",
     "@polymer/iron-demo-helpers": "^3.0.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
-    "np": "^3.0.4",
     "polymer-cli": "^1.7.2",
     "wct-browser-legacy": "^1.0.1"
   },
   "scripts": {
     "start": "npm run serve",
-    "publish": "np --no-cleanup",
     "serve": "polymer serve",
     "build": "polymer build",
     "analyze": "polymer analyze > analysis.json",
