@@ -27,31 +27,57 @@ class StripeCard extends LitElement {
   static get properties() {
     return {
       // Your stripe publishable key (https://stripe.com/docs/dashboard#api-keys)
-      publishableKey: String,
+      publishableKey: {
+        type: String,
+        attribute: 'publishable-key',
+      },
       // Stripe token response (https://stripe.com/docs/api#token_object-id)
-      token: Object,
+      token: {
+        type: Object,
+      },
       // Whether to show zip-code field
-      hideZip: Boolean,
+      hideZip: {
+        type: Boolean,
+        attribute: 'hide-zip',
+      },
       // Whether to display the submit button
-      hideSubmit: Boolean,
+      hideSubmit: {
+        type: Boolean,
+        attribute: 'hide-submit',
+      },
       // Label for the submit button (defaults to Submit)
-      submitLabel: String,
+      submitLabel: {
+        type: String,
+        attribute: 'submit-label',
+      },
       // the masking character to use, defaults to space
-      maskChar: String,
+      maskChar: {
+        type: String,
+        attribute: 'mask-char',
+      },
       // Is true when the request is processing
-      loading: Boolean,
+      loading: {
+        type: Boolean,
+        reflect: true,
+      },
       // error text
-      error: String,
+      error: {
+        type: String,
+      },
     };
   }
 
   constructor() {
     super();
+
     this.maskChar = ' ';
     this.submitLabel = 'Submit';
+
+    this._boundSubmit = this._submit.bind(this);
+    this._boundMaskCard = this._maskCard.bind(this);
   }
 
-  _render({error, hideSubmit, hideZip, submitLabel}) {
+  render() {
     return html`
     <style>
       :host {
@@ -105,17 +131,17 @@ class StripeCard extends LitElement {
     <iron-form id="form">
       <form>
         <div class="horizontal wrap">
-          <paper-input id="cardNumber" class="large" type="tel" allowed-pattern="[0-9 ]" name="number" label="Card number" auto-validate="" required="" no-label-float="" on-value-changed=${(e) => this._maskCard(e)}></paper-input>
+          <paper-input id="cardNumber" class="large" type="tel" allowed-pattern="[0-9 ]" name="number" label="Card number" auto-validate="" required="" no-label-float="" @value-changed=${this._boundMaskCard}></paper-input>
           <div class="horizontal">
             <paper-input class="small" type="tel" name="exp_month" label="MM" min="1" max="12" maxlength="2" auto-validate="" required="" no-label-float=""></paper-input>
             <div class="date-separator">/</div>
             <paper-input class="small" type="tel" name="exp_year" label="YY" maxlength="2" auto-validate="" required="" no-label-float=""></paper-input>
           </div>
           <paper-input class="medium" type="tel" name="cvc" label="CVC" maxlength="4" auto-validate="" required="" no-label-float=""></paper-input>
-          <paper-input hidden?=${hideZip} class="medium" type="text" name="address_zip" label="ZIP" no-label-float=""></paper-input>
+          <paper-input ?hidden=${this.hideZip} class="medium" type="text" name="address_zip" label="ZIP" no-label-float=""></paper-input>
         </div>
-        <div id="error">${error}</div>
-        <paper-button hidden?=${hideSubmit} on-click=${() => this._submit()}>${submitLabel}</paper-button>
+        <div id="error">${this.error}</div>
+        <paper-button ?hidden=${this.hideSubmit} @click=${this._boundSubmit}>${this.submitLabel}</paper-button>
       </form>
     </iron-form>
   `;}
@@ -159,13 +185,6 @@ class StripeCard extends LitElement {
 
     if (body.id) {
       this.token = body;
-      this.dispatchEvent(new CustomEvent('token-changed', {
-        detail: {
-          value: body,
-        },
-        bubbles: false,
-        composed: true,
-      }));
       return body;
     } else if (body.error) {
       this.displayError(body.error);
@@ -272,25 +291,31 @@ class StripeCard extends LitElement {
     return this._$form = this._$form || this.shadowRoot.querySelector('#form');
   }
 
-  set loading(value) {
-    const isLoading = Boolean(value);
-    if (isLoading) {
-      this.setAttribute('loading', '');
-    } else {
-      this.removeAttribute('loading');
+  /**
+	 * Fire change notification event
+	 */
+	update(props) {
+		super.update(props);
+
+		if (props.has('loading')) {
+			this.dispatchEvent(new CustomEvent('loading-changed', {
+				detail: {
+					value: this.loading,
+				},
+				bubbles: false,
+				composed: true,
+			}));
     }
-    this._setProperty('loading', isLoading);
-    this.dispatchEvent(new CustomEvent('loading-changed', {
-      detail: {
-        value: isLoading,
-      },
-      bubbles: false,
-      composed: true,
-    }));
-  }
-  get loading() {
-    return this.hasAttribute('loading');
-  }
+    if (props.has('token')) {
+			this.dispatchEvent(new CustomEvent('token-changed', {
+				detail: {
+					value: this.token,
+				},
+				bubbles: false,
+				composed: true,
+			}));
+		}
+	}
 }
 
 customElements.define(StripeCard.is, StripeCard);

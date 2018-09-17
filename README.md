@@ -30,7 +30,7 @@ npm i @morbidick/stripe-elements
 
 ```html
 <stripe-card
-  publishableKey="pk_your_key"
+  publishable-key="pk_your_key"
   token="{{ token }}"
 ></stripe-card>
 ```
