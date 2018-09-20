@@ -1,4 +1,5 @@
-import { LitElement, html } from '@polymer/lit-element';
+import { LitElement, html } from '@polymer/lit-element/lit-element.js';
+import LitNotify from '@morbidick/lit-element-notify/lit-element-notify.js';
 import '@polymer/iron-form/iron-form.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-input/paper-input.js';
@@ -21,7 +22,7 @@ const apiUrl = 'https://api.stripe.com/v1/tokens';
  * @customElement
  * @extends {LitElement}
  */
-class StripeCard extends LitElement {
+class StripeCard extends LitNotify(LitElement) {
   static get is() { return 'stripe-card'; }
 
   static get properties() {
@@ -34,6 +35,7 @@ class StripeCard extends LitElement {
       // Stripe token response (https://stripe.com/docs/api#token_object-id)
       token: {
         type: Object,
+        notify: true,
       },
       // Whether to show zip-code field
       hideZip: {
@@ -59,6 +61,7 @@ class StripeCard extends LitElement {
       loading: {
         type: Boolean,
         reflect: true,
+        notify: true,
       },
       // error text
       error: {
@@ -290,32 +293,6 @@ class StripeCard extends LitElement {
   get $form() {
     return this._$form = this._$form || this.shadowRoot.querySelector('#form');
   }
-
-  /**
-	 * Fire change notification event
-	 */
-	update(props) {
-		super.update(props);
-
-		if (props.has('loading')) {
-			this.dispatchEvent(new CustomEvent('loading-changed', {
-				detail: {
-					value: this.loading,
-				},
-				bubbles: false,
-				composed: true,
-			}));
-    }
-    if (props.has('token')) {
-			this.dispatchEvent(new CustomEvent('token-changed', {
-				detail: {
-					value: this.token,
-				},
-				bubbles: false,
-				composed: true,
-			}));
-		}
-	}
 }
 
 customElements.define(StripeCard.is, StripeCard);
