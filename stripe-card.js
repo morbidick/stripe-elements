@@ -12,7 +12,7 @@ const apiHeaders = new Headers({
   "Accept": "application/json",
   // Stripe api version (https://stripe.com/docs/api#versioning)
   // Stripe api changelog (https://stripe.com/docs/upgrades#api-changelog)
-  "Stripe-Version": "2018-05-21",
+  "Stripe-Version": "2018-11-08",
 });
 
 // Stripe api endpoint
