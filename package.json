@@ -10,9 +10,9 @@
   },
   "main": "stripe-card.js",
   "dependencies": {
-    "@morbidick/lit-element-notify": "^0.3.0",
+    "@morbidick/lit-element-notify": "^0.4.0",
     "@polymer/iron-form": "^3.0.1",
-    "@polymer/lit-element": "^0.6.1",
+    "@polymer/lit-element": "^0.6.3",
     "@polymer/paper-button": "^3.0.1",
     "@polymer/paper-input": "^3.0.1",
     "@polymer/paper-styles": "^3.0.1"
@@ -21,8 +21,8 @@
     "@polymer/iron-component-page": "^4.0.1",
     "@polymer/iron-demo-helpers": "^3.0.1",
     "@webcomponents/webcomponentsjs": "^2.1.3",
-    "polymer-cli": "^1.8.0",
-    "wct-browser-legacy": "^1.0.1"
+    "polymer-cli": "^1.9.1",
+    "wct-browser-legacy": "^1.0.2"
   },
   "scripts": {
     "start": "npm run serve",

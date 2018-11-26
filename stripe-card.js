@@ -1,5 +1,5 @@
 import { LitElement, html } from '@polymer/lit-element/lit-element.js';
-import LitNotify from '@morbidick/lit-element-notify/lit-element-notify.js';
+import LitNotify from '@morbidick/lit-element-notify/notify.js';
 import '@polymer/iron-form/iron-form.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-input/paper-input.js';
