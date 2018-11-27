@@ -1,5 +1,6 @@
 # Stripe Web Components
 
+[![npm version](https://img.shields.io/npm/v/@morbidick/stripe-elements.svg)](https://www.npmjs.com/package/@morbidick/stripe-elements)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/morbidick/stripe-elements)
 [![Build Status](https://travis-ci.org/morbidick/stripe-elements.svg?branch=master)](https://travis-ci.org/morbidick/stripe-elements)
 [![Greenkeeper badge](https://badges.greenkeeper.io/morbidick/stripe-elements.svg)](https://greenkeeper.io/)
