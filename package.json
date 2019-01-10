@@ -12,7 +12,7 @@
   "dependencies": {
     "@morbidick/lit-element-notify": "^0.5.0",
     "@polymer/iron-form": "^3.0.1",
-    "@polymer/lit-element": "^0.6.3",
+    "@polymer/lit-element": "^0.7.0",
     "@polymer/paper-button": "^3.0.1",
     "@polymer/paper-input": "^3.0.1",
     "@polymer/paper-styles": "^3.0.1"
