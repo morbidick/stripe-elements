@@ -14,7 +14,7 @@
     "@polymer/iron-form": "^3.0.1",
     "@polymer/lit-element": "^0.6.3",
     "@polymer/paper-button": "^3.0.1",
-    "@polymer/paper-input": "^3.0.1",
+    "@polymer/paper-input": "^3.1.0",
     "@polymer/paper-styles": "^3.0.1"
   },
   "devDependencies": {
